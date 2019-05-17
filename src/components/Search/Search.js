@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import _ from 'lodash';
 
 const SearchBlock = styled.div`
-    height: 200px;
+    height: 150px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -11,13 +11,13 @@ const SearchBlock = styled.div`
     flex-direction: column;
 `;
 const SearchInput = styled.input`
-    width: 220px;
-    height: 40px;
+    width: 270px;
+    height: 60px;
     border: none;
     border-bottom: 3px solid #ecf0f1;
     background-color: transparent;
     color: #ecf0f1;
-    font-size: 2rem;
+    font-size: 2.6rem;
     text-align: center;
     ::placeholder {
         color: rgba(236,240,241 ,0.8)
