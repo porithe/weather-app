@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import _ from 'lodash';
 
 const SearchBlock = styled.div`
     height: 200px;
@@ -8,6 +8,7 @@ const SearchBlock = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 `;
 const SearchInput = styled.input`
     width: 220px;
@@ -25,10 +26,23 @@ const SearchInput = styled.input`
 
 class Search extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',
+        };
+    }
+
+    handleInput = _.debounce((value) => {
+        this.setState({value});
+        this.props.onGetValue(value);
+    }, 1000);
+
+
     render() {
         return (
             <SearchBlock>
-                <SearchInput placeholder={"E.g. London"} />
+                <SearchInput placeholder={"E.g. London"} onChange={e => this.handleInput(e.target.value)} />
             </SearchBlock>
         )
     }
