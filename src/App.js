@@ -5,18 +5,24 @@ import Results from './components/Results/Results';
 import axios from 'axios';
 
 
-
 const Application = styled.div`
     width: 100%;
     height: 100vh;
-    background-color: ${props => props.theme};
+    background: ${props => props.theme};
+    transition: .8s;
+    position: relative;
 `;
 
 const theme = {
     default: '#2ecc71',
-    sunny: '#FDD835',
-    rainy: '#34495e',
+    Clear: '#42A5F5',
+    Rain: '#34495e',
+    Clouds: '#90A4AE',
+    Snow: '#ecf0f1',
+    Mist: '#CFD8DC',
+    Thunderstorm: '#2c3e50',
 };
+
 
 
 class App extends React.Component {
@@ -29,9 +35,9 @@ class App extends React.Component {
             temp: '',
             weather: '',
             windSpeed: '',
+            typeOfWeather: 'default',
         };
     }
-
 
 
     getValue = (city) => {
@@ -39,6 +45,9 @@ class App extends React.Component {
             value: city,
         });
         this.getData();
+
+
+
     };
 
     getData = () => {
@@ -52,6 +61,7 @@ class App extends React.Component {
                       temp: response.data.main.temp,
                       weather: response.data.weather[0].description,
                       windSpeed: response.data.wind.speed,
+                      typeOfWeather: response.data.weather[0].main,
                   });
 
               });
@@ -69,12 +79,35 @@ class App extends React.Component {
             results.push(this.state.temp);
             results.push(this.state.weather);
             results.push(this.state.windSpeed);
+            results.push(this.state.typeOfWeather);
         }
 
-        return (
-            <Application theme={theme.default}>
-                <Search onGetValue={this.getValue}/>
+        const typeOfTheme = () => {
+            switch (this.state.typeOfWeather){
+                case 'default':
+                    return theme.default;
+                case 'Clear':
+                    return theme.Clear;
+                case 'Rain':
+                    return theme.Rain;
+                case 'Clouds':
+                    return theme.Clouds;
+                case 'Snow':
+                    return theme.Snow;
+                case 'Extreme':
+                    return theme.Thunderstorm;
+                case 'Thunderstorm':
+                    return theme.Thunderstorm;
+                case 'Mist':
+                    return theme.Mist;
+                case 'Haze':
+                    return theme.Mist;
+            }
+        };
 
+        return (
+            <Application theme={typeOfTheme}>
+                <Search onGetValue={this.getValue}/>
                 {this.state.name !== '' ? <Results value={results} /> : <span></span>}
 
             </Application>

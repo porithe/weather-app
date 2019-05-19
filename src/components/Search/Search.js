@@ -4,9 +4,12 @@ import _ from 'lodash';
 
 const SearchBlock = styled.div`
     width: 100%;
+    height: ${props => props.theme.height};
+    align-items: ${props => props.theme.align};
     display: flex;
-    padding-top: 30px;
+    padding-top: ${props => props.theme.padding};
     justify-content: center;
+    transition: .4s;
 `;
 const SearchInput = styled.input`
     width: 270px;
@@ -18,7 +21,7 @@ const SearchInput = styled.input`
     font-size: 2.6rem;
     text-align: center;
     ::placeholder {
-        color: rgba(236,240,241 ,0.8)
+        color: rgba(250,250,250 ,0.6)
     }
     @media (min-width: 420px) and (max-width: 480px) {
         width: 320px;
@@ -36,6 +39,16 @@ const SearchInput = styled.input`
         font-size: 4rem;
     } 
 `;
+
+const theme = {
+    height: '100%',
+    padding: '0',
+    align: 'center',
+    heightBefore: 'auto',
+    paddingBefore: '30px',
+    alignBefore: 'flex-start',
+};
+
 
 class Search extends React.Component {
 
@@ -55,16 +68,25 @@ class Search extends React.Component {
 
 
     handleInput = (e) => {
-        this.setState({value: e.target.value});
-        this.props.onGetValue(this.state.value);
-        e.target.value = '';
+        if(e.target.value !== '') {
+            this.setState({value: e.target.value});
+            this.props.onGetValue(this.state.value);
+            e.target.value = '';
+            theme.height = theme.heightBefore;
+            theme.padding = theme.paddingBefore;
+            theme.align = theme.alignBefore;
+        }
 
     };
 
 
+
     render() {
+
+
+
         return (
-            <SearchBlock>
+            <SearchBlock theme={theme}>
                 <SearchInput placeholder={"E.g. London"} onChange={this.debounceEvent(this.handleInput, 1000)} />
             </SearchBlock>
         )
