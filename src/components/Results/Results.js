@@ -5,14 +5,13 @@ import styled from 'styled-components';
 const ResultsBlock = styled.div`
     width: 100%;
     height: calc(100vh - 150px);
+    color: ${props => props.theme};
 `;
-
 
 
 const CityName = styled.h1`
     text-align: center;
     font-size: 3rem;
-    color: #FAFAFA;
     font-weight: 500;
     padding-top: 15px;
     @media (min-width: 420px) and (max-width: 480px) {
@@ -35,7 +34,6 @@ const CityName = styled.h1`
 const TemperatureCity = styled.h1`
     text-align: center;
     font-size: 6rem;
-    color: #FAFAFA;
     font-weight: 500;
     padding-top: 15px;
     @media (min-width: 420px) and (max-width: 480px) {
@@ -54,7 +52,6 @@ const TemperatureCity = styled.h1`
 
 const DescriptionCity = styled.h1`
     text-align: center;
-    color: #FAFAFA;
     font-weight: 500;
     font-size: 2rem;
     padding: 20px 15px 0 15px;
@@ -74,7 +71,6 @@ const DescriptionCity = styled.h1`
 
 const WindCity = styled.h1`
     text-align: center;
-    color: #FAFAFA;
     font-weight: 500;
     font-size: 2rem;
     padding: 10px 5px 0 5px;
@@ -100,7 +96,14 @@ const typeOfIcons = {
     moon: "fas fa-moon",
     mist: "fas fa-smog",
     thunderstorm: "fas fa-bolt",
+    fog: "fas fa-smog",
 };
+
+const theme = {
+    light: '#F5F5F5',
+    dark: '#34495e',
+};
+
 
 class Results extends React.Component {
 
@@ -136,13 +139,24 @@ class Results extends React.Component {
                     return typeOfIcons.mist;
                 case 'Haze':
                     return typeOfIcons.mist;
+                case "Fog":
+                    return typeOfIcons.fog;
+            }
+        };
+
+        const chooseColors = () => {
+            if (typeOfWeather === 'Snow' || typeOfWeather === 'Fog' || typeOfWeather === 'Mist' || typeOfWeather === 'Haze') {
+                return theme.dark;
+            }
+            else {
+                return theme.light;
             }
         };
 
         return (
 
 
-                <ResultsBlock>
+                <ResultsBlock theme={chooseColors()}>
 
                     <CityName>{city} <i className={chooseIcon()}></i></CityName>
                     <TemperatureCity>{temperature}&#8451;</TemperatureCity>

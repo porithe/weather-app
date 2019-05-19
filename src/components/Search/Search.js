@@ -15,13 +15,14 @@ const SearchInput = styled.input`
     width: 270px;
     height: 60px;
     border: none;
-    border-bottom: 3px solid #ecf0f1;
+    border-bottom: 3px solid ${props => props.theme};
     background-color: transparent;
-    color: #ecf0f1;
+    color: ${props => props.theme};
     font-size: 2.6rem;
     text-align: center;
     ::placeholder {
-        color: rgba(250,250,250 ,0.6)
+        color: ${props => props.theme};
+        opacity: 0.5;
     }
     @media (min-width: 420px) and (max-width: 480px) {
         width: 320px;
@@ -40,6 +41,7 @@ const SearchInput = styled.input`
     } 
 `;
 
+
 const theme = {
     height: '100%',
     padding: '0',
@@ -47,7 +49,10 @@ const theme = {
     heightBefore: 'auto',
     paddingBefore: '30px',
     alignBefore: 'flex-start',
+    light: '#F5F5F5',
+    dark: '#34495e',
 };
+
 
 
 class Search extends React.Component {
@@ -83,11 +88,20 @@ class Search extends React.Component {
 
     render() {
 
+        let typeOfWeather = this.props.weatherValue;
 
+        const chooseColors = () => {
+            if (typeOfWeather === 'Snow' || typeOfWeather === 'Fog' || typeOfWeather === 'Mist' || typeOfWeather === 'Haze') {
+                return theme.dark;
+            }
+            else {
+                return theme.light;
+            }
+        };
 
         return (
             <SearchBlock theme={theme}>
-                <SearchInput placeholder={"E.g. London"} onChange={this.debounceEvent(this.handleInput, 1000)} />
+                <SearchInput theme={chooseColors} placeholder={"E.g. London"} onChange={this.debounceEvent(this.handleInput, 2000)} />
             </SearchBlock>
         )
     }

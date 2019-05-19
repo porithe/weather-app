@@ -80,6 +80,7 @@ class App extends React.Component {
             results.push(this.state.weather);
             results.push(this.state.windSpeed);
             results.push(this.state.typeOfWeather);
+
         }
 
         const typeOfTheme = () => {
@@ -94,6 +95,8 @@ class App extends React.Component {
                     return theme.Clouds;
                 case 'Snow':
                     return theme.Snow;
+                case 'Fog':
+                    return theme.Mist;
                 case 'Extreme':
                     return theme.Thunderstorm;
                 case 'Thunderstorm':
@@ -107,7 +110,7 @@ class App extends React.Component {
 
         return (
             <Application theme={typeOfTheme}>
-                <Search onGetValue={this.getValue}/>
+                <Search weatherValue={this.state.typeOfWeather} onGetValue={this.getValue}/>
                 {this.state.name !== '' ? <Results value={results} /> : <span></span>}
 
             </Application>
