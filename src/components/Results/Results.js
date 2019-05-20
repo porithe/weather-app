@@ -141,6 +141,8 @@ class Results extends React.Component {
                     return typeOfIcons.mist;
                 case "Fog":
                     return typeOfIcons.fog;
+                default:
+                    return typeOfIcons.sun;
             }
         };
 

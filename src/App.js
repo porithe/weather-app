@@ -55,7 +55,6 @@ class App extends React.Component {
       if(this.state.value !== '') {
           axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.state.value}&APPID=73752f95e0900a6c4855ac9c825beb09&units=metric`)
               .then(response => {
-
                   this.setState({
                       name: this.state.value,
                       temp: response.data.main.temp,
@@ -65,6 +64,7 @@ class App extends React.Component {
                   });
 
               });
+
       }
     };
 
@@ -85,8 +85,6 @@ class App extends React.Component {
 
         const typeOfTheme = () => {
             switch (this.state.typeOfWeather){
-                case 'default':
-                    return theme.default;
                 case 'Clear':
                     return theme.Clear;
                 case 'Rain':
@@ -105,6 +103,8 @@ class App extends React.Component {
                     return theme.Mist;
                 case 'Haze':
                     return theme.Mist;
+                default:
+                    return theme.default;
             }
         };
 
