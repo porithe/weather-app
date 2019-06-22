@@ -8,7 +8,7 @@ Live demo: https://cocky-curran-e2c05c.netlify.com/
 
 ## Informations
 
-Dynamic Weather App
+Weather app made in React. This app have dynamic background.
 
 ## Stack
 
